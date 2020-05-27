@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -17,9 +12,9 @@ namespace Projecte_Stepper
 
         private const string ButtonLeftDefaultText = "-";
         private const string ButtonRightDefaultText = "+";
-        private const float LabelCornerRadiusDefaultValue = 0f;
+        private const float LabelCornerRadiusDefaultValue = 5f;
         private const float ValueDefaultValue = 0f;
-        private const float ValueIncrementDefaultValue = 5f;
+        private const float ValueIncrementDefaultValue = 1f;
 
         public string ButtonLeftText
         {
@@ -63,36 +58,53 @@ namespace Projecte_Stepper
             set { SetValue(ValueIncrementProperty, value); }
         }
 
+        public float ValueMaxValue
+        {
+            get { return (float)GetValue(ValueMaxValueProperty); }
+            set { SetValue(ValueMaxValueProperty, value); }
+        }
+
+        public float ValueMinValue
+        {
+            get { return (float)GetValue(ValueMinValueProperty); }
+            set { SetValue(ValueMinValueProperty, value); }
+        }
 
         #endregion
 
         #region .: Bindable Properties :.
 
-        private readonly BindableProperty ButtonLeftTextProperty =
+        public static readonly BindableProperty ButtonLeftTextProperty =
             BindableProperty.Create(nameof(ButtonLeftText), typeof(string), typeof(CustomStepperControl), ButtonLeftDefaultText,
                 propertyChanged: OnButtonLeftTextPropertyChanged);
 
-        private readonly BindableProperty ButtonRightTextProperty =
+        public static readonly BindableProperty ButtonRightTextProperty =
              BindableProperty.Create(nameof(ButtonRightText), typeof(string), typeof(CustomStepperControl), ButtonRightDefaultText,
                  propertyChanged: OnButtonRightTextPropertyChanged);
 
-        private readonly BindableProperty DirectionProperty =
+        public static readonly BindableProperty DirectionProperty =
             BindableProperty.Create(nameof(Direction), typeof(LayoutDirection), typeof(CustomStepperControl), LayoutDirection.Horizontal,
                 propertyChanged: OnDirectionPropertyChanged);
 
-        private readonly BindableProperty LabelCornerRadiusProperty =
+        public static readonly BindableProperty LabelCornerRadiusProperty =
             BindableProperty.Create(nameof(LabelCornerRadius), typeof(float), typeof(CustomStepperControl), LabelCornerRadiusDefaultValue,
                 propertyChanged: OnLabelCornerRadiusPropertyChanged);
 
-        private readonly BindableProperty LabelIsVisibleProperty =
+        public static readonly BindableProperty LabelIsVisibleProperty =
             BindableProperty.Create(nameof(LabelIsVisible), typeof(bool), typeof(CustomStepperControl), true,
                 propertyChanged: OnLabelIsVisiblePropertyChanged);
 
-        private readonly BindableProperty ValueProperty =
+        public static readonly BindableProperty ValueProperty =
             BindableProperty.Create(nameof(Value), typeof(float), typeof(CustomStepperControl), ValueDefaultValue);
 
-        private readonly BindableProperty ValueIncrementProperty =
+        public static readonly BindableProperty ValueIncrementProperty =
             BindableProperty.Create(nameof(ValueIncrement), typeof(float), typeof(CustomStepperControl), ValueIncrementDefaultValue);
+
+        public static readonly BindableProperty ValueMaxValueProperty =
+            BindableProperty.Create(nameof(ValueMaxValue), typeof(float), typeof(CustomStepperControl), float.MaxValue);
+
+        public static readonly BindableProperty ValueMinValueProperty =
+            BindableProperty.Create(nameof(ValueMinValue), typeof(float), typeof(CustomStepperControl), float.MinValue);
 
         #endregion
 
@@ -104,6 +116,7 @@ namespace Projecte_Stepper
 
             InitializeEvents();
             LoadDefaulValues();
+            SetGeneralLayout();
         }
 
         #endregion
@@ -115,9 +128,13 @@ namespace Projecte_Stepper
             var isNumber = float.TryParse(LabelDisplay.Text, out float numberValue);
             if (!isNumber) return;
 
-            Value = numberValue;
+            var newValue = (decimal)(Value - ValueIncrement);
 
-            LabelDisplay.Text = (Value - ValueIncrement).ToString();
+            if ((float)newValue >= ValueMinValue)
+            {
+                LabelDisplay.Text = (newValue).ToString();
+                Value = (float)newValue;
+            }
         }
 
         private void OnButtonRightClick(object sender, EventArgs e)
@@ -125,9 +142,14 @@ namespace Projecte_Stepper
             var isNumber = float.TryParse(LabelDisplay.Text, out float numberValue);
             if (!isNumber) return;
 
-            Value = numberValue;
-            
-            LabelDisplay.Text = (Value + ValueIncrement).ToString();
+            var newValue = (decimal)(Value + ValueIncrement);
+
+            if ((float)newValue <= ValueMaxValue)
+            {
+                LabelDisplay.Text = (newValue).ToString();
+                Value = (float)newValue;
+            }
+
         }
 
         #endregion
@@ -184,6 +206,7 @@ namespace Projecte_Stepper
             if (newValue is bool labelIsVisible)
             {
                 control.LabelFrame.IsVisible = labelIsVisible;
+                control.SetGeneralLayout();
             }
         }
 
@@ -204,7 +227,28 @@ namespace Projecte_Stepper
             LabelDisplay.Text = ((int)ValueDefaultValue).ToString();
         }
 
+        private void SetGeneralLayout()
+        {
+            float buttonLeftRelativeSize = 0.33f;
+            float buttonRightRelativeSize = 0.43f;
+            float total = 1f;
 
+            if (!LabelFrame.IsVisible)
+            {
+                var newTotalRelative = buttonLeftRelativeSize + buttonRightRelativeSize;
+
+                buttonLeftRelativeSize = buttonLeftRelativeSize / newTotalRelative;
+                buttonRightRelativeSize = buttonRightRelativeSize / newTotalRelative;
+            }
+
+            float labelFrameRelativeSize = total - (buttonLeftRelativeSize + buttonRightRelativeSize);
+
+            if (labelFrameRelativeSize < 0 || labelFrameRelativeSize > 1) return;
+
+            FlexLayout.SetBasis(ButtonLeft, new FlexBasis(buttonLeftRelativeSize, true));
+            FlexLayout.SetBasis(ButtonRight, new FlexBasis(buttonRightRelativeSize, true));
+            FlexLayout.SetBasis(LabelFrame, new FlexBasis(labelFrameRelativeSize, true));
+        }
 
         #endregion
     }

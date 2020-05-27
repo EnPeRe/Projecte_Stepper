@@ -17,17 +17,14 @@
                 x:Name="ButtonLeft"
                 CornerRadius="5"
                 Padding="0"
-                Margin="10"
-                FlexLayout.Basis="33%"/>
+                Margin="10"/>
 
             <Frame
                 x:Name="LabelFrame"
                 Padding="0"
                 Margin="5"
                 HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand"
-                CornerRadius="20"
-                FlexLayout.Basis="33%">
+                VerticalOptions="CenterAndExpand">
 
                 <Label
                     x:Name="LabelDisplay"
@@ -39,8 +36,7 @@
                 x:Name="ButtonRight"
                 Padding="0"
                 CornerRadius="5"
-                Margin="5"
-                FlexLayout.Basis="33%"/>
+                Margin="5"/>
         </FlexLayout>
     </ContentView.Content>
 </ContentView>
