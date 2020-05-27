@@ -11,194 +11,33 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
                 Direction="Column">
-            <BoxView
-                    FlexLayout.Basis="5%"/>
+            <projecte_stepper:CustomStepperControl
+                    FlexLayout.Basis="10%"/>
             <FlexLayout
-                    FlexLayout.Basis="90%"
-                    Direction="Row">
-                <BoxView
-                        FlexLayout.Basis="5%"/>
-                <Frame
-                        x:Name="CardFrame"
-                        BorderColor="Silver"
-                        FlexLayout.Basis="90%"
-                        CornerRadius="10"
-                        Padding="10"
-                        BackgroundColor="Black"
-                        HasShadow="True"
-                        VerticalOptions="FillAndExpand">
-                    <Grid
-                            BackgroundColor="LightGray"
-                            HorizontalOptions="FillAndExpand"
-                            Padding="5"
-                            ColumnSpacing="0"
-                            RowSpacing="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="4*"/>
-                            <RowDefinition Height="0.5*"/>
-                            <RowDefinition Height="3*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="4*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <!--First Row-->
-                        <Frame 
-                                HorizontalOptions="FillAndExpand" 
-                                VerticalOptions="FillAndExpand" 
-                                BorderColor="Gray"
-                                CornerRadius="5"
-                                Margin="0"
-                                Padding="0"
-                                Grid.Row="0" 
-                                Grid.Column="0">
-                            <Label 
-                                    Text="2" 
-                                    TextColor="Black"
-                                    HorizontalOptions="Center" 
-                                    VerticalOptions="Center"/>
-                            <!--Points-->
-                        </Frame>
-                        <StackLayout 
-                                HorizontalOptions="CenterAndExpand" 
-                                VerticalOptions="CenterAndExpand" 
-                                Grid.Row="0" 
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2">
-                            <Label 
-                                    Text="uop" 
-                                    TextColor="Black"
-                                    HorizontalOptions="Center" 
-                                    VerticalOptions="Center" 
-                                    HorizontalTextAlignment="Center"/>
-                        </StackLayout>
-
-
-                        <!--Second Row-->
-                        <StackLayout 
-                                HorizontalOptions="FillAndExpand" 
-                                VerticalOptions="FillAndExpand" 
-                                Grid.Row="1" 
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                Margin="0,0,10,0"
-                                BackgroundColor="DarkOrange">
-                            <Label 
-                                    Text="IMAGE"  
-                                    TextColor="Black" 
-                                    VerticalOptions="CenterAndExpand"
-                                    HorizontalTextAlignment="Center"
-                                    VerticalTextAlignment="Center"/>
-                        </StackLayout>
-
-                        <!--Third Row-->
-                        <StackLayout 
-                                HorizontalOptions="CenterAndExpand" 
-                                VerticalOptions="CenterAndExpand" 
-                                Margin="0,0,10,0"
-                                Grid.Row="2" 
-                                Grid.Column="2" >
-                            <Label 
-                                    Text="waru" 
-                                    HorizontalOptions="End" 
-                                    VerticalOptions="End" 
-                                    HorizontalTextAlignment="End"/>
-                        </StackLayout>
-
-                        <!--Four Row-->
-                        <Frame 
-                                HorizontalOptions="FillAndExpand" 
-                                VerticalOptions="FillAndExpand" 
-                                BorderColor="Gray"
-                                Margin="10,0,10,0"
-                                Padding="5"
-                                Grid.Row="3" 
-                                Grid.Column="0"
-                                Grid.ColumnSpan="3">
-                            <Label 
-                                    Text="flzdnfxzflsfb znghgcxfzf fnxzzfbxg ncxv"  
-                                    TextColor="Black" 
-                                    HorizontalTextAlignment="Start"/>
-                        </Frame>
-
-                        <!--Fifth Row-->
-                        <StackLayout 
-                                HorizontalOptions="FillAndExpand" 
-                                VerticalOptions="FillAndExpand" 
-                                BackgroundColor="DarkGray"
-                                Margin="5"
-                                Grid.Row="4" 
-                                Grid.Column="0">
-                            <Label 
-                                    Text="456" 
-                                    TextColor="White"
-                                    HorizontalOptions="Center" 
-                                    VerticalOptions="CenterAndExpand" 
-                                    HorizontalTextAlignment="Center"
-                                    VerticalTextAlignment="Center"/>
-                        </StackLayout>
-                        <FlexLayout 
-                                Direction="Row"
-                                HorizontalOptions="FillAndExpand" 
-                                VerticalOptions="CenterAndExpand" 
-                                Grid.Row="4" 
-                                Grid.Column="1"
-                            Padding="5">
-                            <!--<Switch 
-                                    x:Name="CollectedSwitch" 
-                                    IsToggled="{Binding Collected, Mode=TwoWay}"  
-                                    HorizontalOptions="End"
-                                    VerticalOptions="Center"
-                                    IsEnabled="{Binding IsBusy, Converter={converters:BoolInverterConverter}}">
-                                    <Switch.Behaviors>
-                                        <behaviors:EventHandlerBehavior EventName="Toggled">
-                                            <behaviors:InvokeCommandAction Command="{Binding Source={x:Reference CardPageReference}, Path=BindingContext.SwitchToggledCommand}"/>
-                                        </behaviors:EventHandlerBehavior>
-                                    </Switch.Behaviors>
-                                </Switch>-->
-                            <BoxView
-                                FlexLayout.Basis="50%"/>
-                            <Frame
-                                Padding="1"
-                                FlexLayout.Basis="50%">
-                                <projecte_stepper:CustomStepper
-                                    Margin="5"
-                                    HorizontalOptions="End"
-                                    VerticalOptions="Center"/>
-                            </Frame>
-                        </FlexLayout>
-                        <Frame 
-                                HorizontalOptions="FillAndExpand" 
-                                VerticalOptions="FillAndExpand" 
-                                BorderColor="Gray"
-                                CornerRadius="10"
-                                Margin="5,8,5,8"
-                                Padding="0"
-                                Grid.Row="4" 
-                                Grid.Column="2">
-                            <Label 
-                                    Text="+1" 
-                                    TextColor="Black"
-                                    HorizontalOptions="Center" 
-                                    VerticalOptions="Center" 
-                                    HorizontalTextAlignment="Center"/>
-                            <!-- Corruption -->
-                        </Frame>
-
-                    </Grid>
-                </Frame>
-                <BoxView
-                        FlexLayout.Basis="5%"/>
+                    FlexLayout.Basis="40%"
+                    Direction="Column">
+                <projecte_stepper:CustomStepperControl/>
             </FlexLayout>
-            <BoxView
-                    FlexLayout.Basis="5%"/>
+            <FlexLayout
+                    FlexLayout.Basis="40%"
+                    Direction="Row">
+                <projecte_stepper:CustomStepperControl/>
+            </FlexLayout>
+            <FlexLayout
+                FlexLayout.Basis="10%">
+                <projecte_stepper:CustomStepperControl
+                    FlexLayout.Basis="80%"/>
+                <projecte_stepper:CustomStepperControl
+                    FlexLayout.Basis="20%"/>
+            </FlexLayout>
         </FlexLayout>
-
-        <projecte_stepper:CustomStepperControl/>
+        <FlexLayout
+            BackgroundColor="Yellow">
+            <projecte_stepper:CustomStepperControl
+                FlexLayout.Basis="50%"/>
+            <projecte_stepper:CustomStepperControl
+                FlexLayout.Basis="50%"/>
+        </FlexLayout>
     </StackLayout>
 
 </ContentPage>

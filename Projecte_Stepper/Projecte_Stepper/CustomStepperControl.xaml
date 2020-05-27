@@ -7,44 +7,38 @@
              x:Class="Projecte_Stepper.CustomStepperControl">
     <ContentView.Content>
         <FlexLayout
-            BackgroundColor="Yellow">
-            <BoxView
-                FlexLayout.Basis="70%"/>
-            <FlexLayout
-                BackgroundColor="Orange"
-                FlexLayout.Basis="30%"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand"
-                Direction="Row">
+            BackgroundColor="Orange"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Direction="Row">
 
-                <Button
-                    CornerRadius="5"
-                    Padding="0"
-                    Margin="10"
-                    FlexLayout.Basis="33%"
-                    Text="-" />
+            <Button
+                CornerRadius="5"
+                Padding="0"
+                Margin="10"
+                FlexLayout.Basis="33%"
+                Text="-" />
 
-                <Frame
-                    Padding="0"
-                    Margin="5"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="CenterAndExpand"
-                    CornerRadius="20"
-                    FlexLayout.Basis="33%">
+            <Frame
+                Padding="0"
+                Margin="5"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                CornerRadius="20"
+                FlexLayout.Basis="33%">
 
-                    <Label
-                        Text="2"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"/>
-                </Frame>
+                <Label
+                    Text="2"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"/>
+            </Frame>
 
-                <Button
-                    Padding="0"
-                    CornerRadius="5"
-                    Margin="5"
-                    FlexLayout.Basis="33%"
-                    Text="+"/>
-            </FlexLayout>
+            <Button
+                Padding="0"
+                CornerRadius="5"
+                Margin="5"
+                FlexLayout.Basis="33%"
+                Text="+"/>
         </FlexLayout>
     </ContentView.Content>
 </ContentView>
