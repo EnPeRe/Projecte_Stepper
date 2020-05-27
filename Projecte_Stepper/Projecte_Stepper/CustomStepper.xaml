@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Projecte_Stepper.CustomStepperControl">
+             x:Class="Projecte_Stepper.CustomStepper">
     <ContentView.Content>
         <FlexLayout
             x:Name="GeneralLayout"
@@ -17,7 +17,7 @@
                 x:Name="ButtonLeft"
                 CornerRadius="5"
                 Padding="0"
-                Margin="10"/>
+                Margin="5"/>
 
             <Frame
                 x:Name="LabelFrame"

@@ -8,41 +8,51 @@
 
     <StackLayout>
         <FlexLayout
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand"
-                Direction="Column">
-            
-            <projecte_stepper:CustomStepperControl
-                    FlexLayout.Basis="10%"/>
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            Direction="Column">
+
+            <projecte_stepper:CustomStepper
+                Order="ButtonButtonLabel"
+                ButtonLeftRelativeSize="0.11"
+                ButtonRightRelativeSize="0.05"
+                FlexLayout.Basis="10%"/>
             <FlexLayout
-                    FlexLayout.Basis="40%">
-                <projecte_stepper:CustomStepperControl
+                FlexLayout.Basis="40%">
+                <projecte_stepper:CustomStepper
                     ValueMinValue="-12.3"
+                    ButtonRightCornerRadius="15"
                     Direction="Vertical"/>
             </FlexLayout>
             <FlexLayout
-                    FlexLayout.Basis="40%">
-                <projecte_stepper:CustomStepperControl
+                FlexLayout.Basis="40%">
+                <projecte_stepper:CustomStepper
+                    ButtonLeftSize="Min"
+                    ButtonRightRelativeSize="0.55"
                     ValueMinValue="0"
+                    ButtonLeftCornerRadius="40"
                     Direction="Horizontal"/>
             </FlexLayout>
 
             <FlexLayout
                 FlexLayout.Basis="10%">
-                <projecte_stepper:CustomStepperControl
+                <projecte_stepper:CustomStepper
                     LabelIsVisible="false"
                     FlexLayout.Basis="80%"/>
-                <projecte_stepper:CustomStepperControl
+                <projecte_stepper:CustomStepper
                     FlexLayout.Basis="20%"/>
             </FlexLayout>
         </FlexLayout>
 
         <FlexLayout
             BackgroundColor="Yellow">
-            <projecte_stepper:CustomStepperControl
+            <projecte_stepper:CustomStepper
+                Order="LabelButtonButton"
+                ButtonLeftSize="Large"
+                ButtonRightSize="Medium"
                 FlexLayout.Basis="50%"
                 ValueIncrement="0.1"/>
-            <projecte_stepper:CustomStepperControl
+            <projecte_stepper:CustomStepper
                 FlexLayout.Basis="50%"
                 Value="{Binding LocalValue, Mode=TwoWay}"
                 ValueIncrement="2.33"

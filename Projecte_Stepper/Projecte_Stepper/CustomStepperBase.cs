@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace Projecte_Stepper
 {
-    public class CustomStepper : StackLayout
+    public class CustomStepperBase : StackLayout
     {
         Button MinusBtn;
         Button PlusBtn;
@@ -15,7 +15,7 @@ namespace Projecte_Stepper
           BindableProperty.Create(
              propertyName: "Text",
               returnType: typeof(int),
-              declaringType: typeof(CustomStepper),
+              declaringType: typeof(CustomStepperBase),
               defaultValue: 1,
               defaultBindingMode: BindingMode.TwoWay);
 
@@ -24,7 +24,7 @@ namespace Projecte_Stepper
             get { return (int)GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
         }
-        public CustomStepper()
+        public CustomStepperBase()
         {
             MinusBtn = new Button { Text = "-", WidthRequest = 40, FontAttributes = FontAttributes.Bold, FontSize = 15 };
             PlusBtn = new Button { Text = "+", WidthRequest = 40, FontAttributes = FontAttributes.Bold, FontSize = 15 };

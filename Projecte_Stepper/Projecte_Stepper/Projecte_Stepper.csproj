@@ -16,7 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="CustomStepperControl.xaml">
+    <Compile Update="CustomStepper.xaml.cs">
+      <DependentUpon>CustomStepper.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="CustomStepper.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
