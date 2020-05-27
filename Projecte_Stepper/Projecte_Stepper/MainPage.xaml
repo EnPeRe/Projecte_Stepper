@@ -11,32 +11,39 @@
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
                 Direction="Column">
+            
             <projecte_stepper:CustomStepperControl
                     FlexLayout.Basis="10%"/>
             <FlexLayout
-                    FlexLayout.Basis="40%"
-                    Direction="Column">
-                <projecte_stepper:CustomStepperControl/>
+                    FlexLayout.Basis="40%">
+                <projecte_stepper:CustomStepperControl
+                    Direction="Vertical"/>
             </FlexLayout>
             <FlexLayout
-                    FlexLayout.Basis="40%"
-                    Direction="Row">
-                <projecte_stepper:CustomStepperControl/>
+                    FlexLayout.Basis="40%">
+                <projecte_stepper:CustomStepperControl
+                    Direction="Horizontal"/>
             </FlexLayout>
+
             <FlexLayout
                 FlexLayout.Basis="10%">
                 <projecte_stepper:CustomStepperControl
-                    FlexLayout.Basis="80%"/>
+                    FlexLayout.Basis="80%"
+                    LabelIsVisible="false"/>
                 <projecte_stepper:CustomStepperControl
                     FlexLayout.Basis="20%"/>
             </FlexLayout>
         </FlexLayout>
+        
         <FlexLayout
             BackgroundColor="Yellow">
             <projecte_stepper:CustomStepperControl
-                FlexLayout.Basis="50%"/>
+                FlexLayout.Basis="50%"
+                ValueIncrement="0.1"/>
             <projecte_stepper:CustomStepperControl
-                FlexLayout.Basis="50%"/>
+                FlexLayout.Basis="50%"
+                ValueIncrement="2.33"
+                LabelCornerRadius="50"/>
         </FlexLayout>
     </StackLayout>
 

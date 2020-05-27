@@ -7,19 +7,21 @@
              x:Class="Projecte_Stepper.CustomStepperControl">
     <ContentView.Content>
         <FlexLayout
+            x:Name="GeneralLayout"
             BackgroundColor="Orange"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
             Direction="Row">
 
             <Button
+                x:Name="ButtonLeft"
                 CornerRadius="5"
                 Padding="0"
                 Margin="10"
-                FlexLayout.Basis="33%"
-                Text="-" />
+                FlexLayout.Basis="33%"/>
 
             <Frame
+                x:Name="LabelFrame"
                 Padding="0"
                 Margin="5"
                 HorizontalOptions="CenterAndExpand"
@@ -28,17 +30,17 @@
                 FlexLayout.Basis="33%">
 
                 <Label
-                    Text="2"
+                    x:Name="LabelDisplay"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"/>
             </Frame>
 
             <Button
+                x:Name="ButtonRight"
                 Padding="0"
                 CornerRadius="5"
                 Margin="5"
-                FlexLayout.Basis="33%"
-                Text="+"/>
+                FlexLayout.Basis="33%"/>
         </FlexLayout>
     </ContentView.Content>
 </ContentView>
