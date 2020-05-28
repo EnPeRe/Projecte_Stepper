@@ -22,13 +22,17 @@
                 <projecte_stepper:CustomStepper
                     ValueMinValue="-12.3"
                     ButtonRightCornerRadius="15"
+                    ButtonRightColor="LimeGreen"
                     Direction="Vertical"/>
             </FlexLayout>
             <FlexLayout
                 FlexLayout.Basis="40%">
                 <projecte_stepper:CustomStepper
+                    ButtonLeftColor="DeepSkyBlue"
                     ButtonLeftSize="Min"
+                    ButtonRightColor="Aquamarine"
                     ButtonRightRelativeSize="0.55"
+                    LabelColor="MediumOrchid"
                     ValueMinValue="0"
                     ButtonLeftCornerRadius="40"
                     Direction="Horizontal"/>
@@ -40,6 +44,7 @@
                     LabelIsVisible="false"
                     FlexLayout.Basis="80%"/>
                 <projecte_stepper:CustomStepper
+                    LabelColor="Gray"
                     FlexLayout.Basis="20%"/>
             </FlexLayout>
         </FlexLayout>

@@ -11,14 +11,24 @@ namespace Projecte_Stepper
 
         #region .: Properties :.
 
+        private static Color ButtonDefaultColor = Color.Default;
         private const string ButtonLeftDefaultText = "-";
         private const string ButtonRightDefaultText = "+";
         private const float CornerRadiusDefaultValue = 5f;
         private const float DefaultRelativeSize = 0.33f;
+        private static Color LabelDefaultColor = Color.Default;
         private const float ValueDefaultValue = 0f;
         private const float ValueIncrementDefaultValue = 1f;
 
         #region Buttons
+
+        #region Left
+
+        public Color ButtonLeftColor
+        {
+            get { return (Color)GetValue(ButtonLeftColorProperty); }
+            set { SetValue(ButtonLeftColorProperty, value); }
+        }
 
         public int ButtonLeftCornerRadius
         {
@@ -42,6 +52,16 @@ namespace Projecte_Stepper
         {
             get { return (string)GetValue(ButtonLeftTextProperty); }
             set { SetValue(ButtonLeftTextProperty, value); }
+        }
+
+        #endregion
+
+        #region Right
+
+        public Color ButtonRightColor
+        {
+            get { return (Color)GetValue(ButtonRightColorProperty); }
+            set { SetValue(ButtonRightColorProperty, value); }
         }
 
         public int ButtonRightCornerRadius
@@ -70,6 +90,8 @@ namespace Projecte_Stepper
 
         #endregion
 
+        #endregion
+
         public LayoutDirection Direction
         {
             get { return (LayoutDirection)GetValue(DirectionProperty); }
@@ -77,6 +99,12 @@ namespace Projecte_Stepper
         }
 
         #region Label
+
+        public Color LabelColor
+        {
+            get { return (Color)GetValue(LabelColorProperty); }
+            set { SetValue(LabelColorProperty, value); }
+        }
 
         public float LabelCornerRadius
         {
@@ -138,6 +166,10 @@ namespace Projecte_Stepper
 
         #region Buttons
 
+        public static readonly BindableProperty ButtonLeftColorProperty =
+             BindableProperty.Create(nameof(ButtonLeftColor), typeof(Color), typeof(CustomStepper), ButtonDefaultColor,
+                 propertyChanged: OnButtonLeftColorPropertyChanged);        
+
         public static readonly BindableProperty ButtonLeftCornerRadiusProperty =
              BindableProperty.Create(nameof(ButtonLeftCornerRadius), typeof(int), typeof(CustomStepper), (int)CornerRadiusDefaultValue,
                  propertyChanged: OnButtonLeftCornerRadiusPropertyChanged);
@@ -153,6 +185,10 @@ namespace Projecte_Stepper
         public static readonly BindableProperty ButtonLeftTextProperty =
             BindableProperty.Create(nameof(ButtonLeftText), typeof(string), typeof(CustomStepper), ButtonLeftDefaultText,
                 propertyChanged: OnButtonLeftTextPropertyChanged);
+
+        public static readonly BindableProperty ButtonRightColorProperty =
+             BindableProperty.Create(nameof(ButtonRightColor), typeof(Color), typeof(CustomStepper), ButtonDefaultColor,
+                 propertyChanged: OnButtonRightColorPropertyChanged);
 
         public static readonly BindableProperty ButtonRightCornerRadiusProperty =
              BindableProperty.Create(nameof(ButtonRightCornerRadius), typeof(int), typeof(CustomStepper), (int)CornerRadiusDefaultValue,
@@ -177,6 +213,10 @@ namespace Projecte_Stepper
                 propertyChanged: OnDirectionPropertyChanged);
 
         #region Label
+
+        public static readonly BindableProperty LabelColorProperty =
+            BindableProperty.Create(nameof(LabelColor), typeof(Color), typeof(CustomStepper), LabelDefaultColor,
+                propertyChanged: OnLabelColorPropertyChanged);
 
         public static readonly BindableProperty LabelCornerRadiusProperty =
             BindableProperty.Create(nameof(LabelCornerRadius), typeof(float), typeof(CustomStepper), CornerRadiusDefaultValue,
@@ -262,6 +302,16 @@ namespace Projecte_Stepper
 
         #region .: PropertyChanged's :.
 
+        private static void OnButtonLeftColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = (CustomStepper)bindable;
+
+            if(newValue is Color newColor)
+            {
+                control.ButtonLeft.BackgroundColor = newColor;
+            }
+        }
+
         private static void OnButtonLeftCornerRadiusPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var control = (CustomStepper)bindable;
@@ -299,6 +349,16 @@ namespace Projecte_Stepper
             if(newValue is string buttonLeftText)
             {
                 control.ButtonLeft.Text = buttonLeftText;
+            }
+        }
+
+        private static void OnButtonRightColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = (CustomStepper)bindable;
+
+            if (newValue is Color newColor)
+            {
+                control.ButtonRight.BackgroundColor = newColor;
             }
         }
 
@@ -352,6 +412,16 @@ namespace Projecte_Stepper
                     control.GeneralLayout.Direction = FlexDirection.Column;
                 else
                     control.GeneralLayout.Direction = FlexDirection.Row;
+            }
+        }
+
+        private static void OnLabelColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = (CustomStepper)bindable;
+
+            if (newValue is Color newColor)
+            {
+                control.LabelFrame.BackgroundColor = newColor;
             }
         }
 
