@@ -8,13 +8,14 @@
     <ContentView.Content>
         <FlexLayout
             x:Name="GeneralLayout"
-            BackgroundColor="Orange"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
             Direction="Row">
 
             <Button
                 x:Name="ButtonLeft"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
                 CornerRadius="5"
                 Padding="0"
                 Margin="5"/>
@@ -23,8 +24,8 @@
                 x:Name="LabelFrame"
                 Padding="0"
                 Margin="5"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand">
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
 
                 <Label
                     x:Name="LabelDisplay"
@@ -34,6 +35,8 @@
 
             <Button
                 x:Name="ButtonRight"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
                 Padding="0"
                 CornerRadius="5"
                 Margin="5"/>

@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,6 +11,8 @@ namespace Projecte_Stepper
 
         #region .: Properties :.
 
+        #region Configuration Parameters
+
         private static Color ButtonDefaultColor = Color.Default;
         private const string ButtonLeftDefaultText = "-";
         private const string ButtonRightDefaultText = "+";
@@ -18,11 +20,20 @@ namespace Projecte_Stepper
         private const float DefaultRelativeSize = 0.33f;
         private static Color LabelDefaultColor = Color.Default;
         private const float ValueDefaultValue = 0f;
+        private const float ValueDefaultMinValue = 0f;
         private const float ValueIncrementDefaultValue = 1f;
+
+        #endregion
 
         #region Buttons
 
         #region Left
+
+        public ICommand ButtonLeftClickCommand
+        {
+            get { return (ICommand)GetValue(ButtonLeftClickCommandProperty); }
+            set { SetValue(ButtonLeftClickCommandProperty, value); }
+        }
 
         public Color ButtonLeftColor
         {
@@ -57,6 +68,12 @@ namespace Projecte_Stepper
         #endregion
 
         #region Right
+
+        public ICommand ButtonRightClickCommand
+        {
+            get { return (ICommand)GetValue(ButtonRightClickCommandProperty); }
+            set { SetValue(ButtonRightClickCommandProperty, value); }
+        }
 
         public Color ButtonRightColor
         {
@@ -166,9 +183,14 @@ namespace Projecte_Stepper
 
         #region Buttons
 
+        #region Left
+
+        public static readonly BindableProperty ButtonLeftClickCommandProperty =
+            BindableProperty.Create(nameof(ButtonLeftClickCommand), typeof(ICommand), typeof(CustomStepper), null);
+
         public static readonly BindableProperty ButtonLeftColorProperty =
              BindableProperty.Create(nameof(ButtonLeftColor), typeof(Color), typeof(CustomStepper), ButtonDefaultColor,
-                 propertyChanged: OnButtonLeftColorPropertyChanged);        
+                 propertyChanged: OnButtonLeftColorPropertyChanged);
 
         public static readonly BindableProperty ButtonLeftCornerRadiusProperty =
              BindableProperty.Create(nameof(ButtonLeftCornerRadius), typeof(int), typeof(CustomStepper), (int)CornerRadiusDefaultValue,
@@ -176,7 +198,7 @@ namespace Projecte_Stepper
 
         public static readonly BindableProperty ButtonLeftRelativeSizeProperty =
              BindableProperty.Create(nameof(ButtonLeftRelativeSize), typeof(float), typeof(CustomStepper), DefaultRelativeSize,
-                 propertyChanged: OnButtonLeftRelativeSizePropertyChanged);
+                 propertyChanged: SetGeneralRelativeSizePropertyChanged);
 
         public static readonly BindableProperty ButtonLeftSizeProperty =
              BindableProperty.Create(nameof(ButtonLeftSize), typeof(ElementSize), typeof(CustomStepper), ElementSize.Large,
@@ -185,6 +207,13 @@ namespace Projecte_Stepper
         public static readonly BindableProperty ButtonLeftTextProperty =
             BindableProperty.Create(nameof(ButtonLeftText), typeof(string), typeof(CustomStepper), ButtonLeftDefaultText,
                 propertyChanged: OnButtonLeftTextPropertyChanged);
+
+        #endregion
+
+        #region Right
+
+        public static readonly BindableProperty ButtonRightClickCommandProperty =
+            BindableProperty.Create(nameof(ButtonRightClickCommand), typeof(ICommand), typeof(CustomStepper), null);
 
         public static readonly BindableProperty ButtonRightColorProperty =
              BindableProperty.Create(nameof(ButtonRightColor), typeof(Color), typeof(CustomStepper), ButtonDefaultColor,
@@ -196,7 +225,7 @@ namespace Projecte_Stepper
 
         public static readonly BindableProperty ButtonRightRelativeSizeProperty =
              BindableProperty.Create(nameof(ButtonRightRelativeSize), typeof(float), typeof(CustomStepper), DefaultRelativeSize,
-                 propertyChanged: OnButtonRightRelativeSizePropertyChanged);
+                 propertyChanged: SetGeneralRelativeSizePropertyChanged);
 
         public static readonly BindableProperty ButtonRightSizeProperty =
              BindableProperty.Create(nameof(ButtonRightSize), typeof(ElementSize), typeof(CustomStepper), ElementSize.Large,
@@ -205,6 +234,8 @@ namespace Projecte_Stepper
         public static readonly BindableProperty ButtonRightTextProperty =
              BindableProperty.Create(nameof(ButtonRightText), typeof(string), typeof(CustomStepper), ButtonRightDefaultText,
                  propertyChanged: OnButtonRightTextPropertyChanged);
+
+        #endregion
 
         #endregion
 
@@ -239,7 +270,8 @@ namespace Projecte_Stepper
         #region Value
 
         public static readonly BindableProperty ValueProperty =
-            BindableProperty.Create(nameof(Value), typeof(float), typeof(CustomStepper), ValueDefaultValue);
+            BindableProperty.Create(nameof(Value), typeof(float), typeof(CustomStepper), ValueDefaultValue,
+                propertyChanged: OnValuePropertyChanged);
 
         public static readonly BindableProperty ValueIncrementProperty =
             BindableProperty.Create(nameof(ValueIncrement), typeof(float), typeof(CustomStepper), ValueIncrementDefaultValue);
@@ -248,7 +280,7 @@ namespace Projecte_Stepper
             BindableProperty.Create(nameof(ValueMaxValue), typeof(float), typeof(CustomStepper), float.MaxValue);
 
         public static readonly BindableProperty ValueMinValueProperty =
-            BindableProperty.Create(nameof(ValueMinValue), typeof(float), typeof(CustomStepper), float.MinValue);
+            BindableProperty.Create(nameof(ValueMinValue), typeof(float), typeof(CustomStepper), ValueDefaultMinValue);
 
         #endregion
 
@@ -267,46 +299,13 @@ namespace Projecte_Stepper
 
         #endregion
 
-        #region .: Events :.
-
-        private void OnButtonLeftClick(object sender, EventArgs e)
-        {
-            var isNumber = float.TryParse(LabelDisplay.Text, out float numberValue);
-            if (!isNumber) return;
-
-            var newValue = (decimal)(Value - ValueIncrement);
-
-            if ((float)newValue >= ValueMinValue)
-            {
-                LabelDisplay.Text = (newValue).ToString();
-                Value = (float)newValue;
-            }
-        }
-
-        private void OnButtonRightClick(object sender, EventArgs e)
-        {
-            var isNumber = float.TryParse(LabelDisplay.Text, out float numberValue);
-            if (!isNumber) return;
-
-            var newValue = (decimal)(Value + ValueIncrement);
-
-            if ((float)newValue <= ValueMaxValue)
-            {
-                LabelDisplay.Text = (newValue).ToString();
-                Value = (float)newValue;
-            }
-
-        }
-
-        #endregion
-
         #region .: PropertyChanged's :.
 
         private static void OnButtonLeftColorPropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var control = (CustomStepper)bindable;
 
-            if(newValue is Color newColor)
+            if (newValue is Color newColor)
             {
                 control.ButtonLeft.BackgroundColor = newColor;
             }
@@ -316,19 +315,9 @@ namespace Projecte_Stepper
         {
             var control = (CustomStepper)bindable;
 
-            if(newValue is int cornerRadius)
+            if (newValue is int cornerRadius)
             {
                 control.ButtonLeft.CornerRadius = cornerRadius;
-            }
-        }
-
-        private static void OnButtonLeftRelativeSizePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var control = (CustomStepper)bindable;
-
-            if (newValue is float)
-            {
-                control.SetGeneralLayout();
             }
         }
 
@@ -336,7 +325,7 @@ namespace Projecte_Stepper
         {
             var control = (CustomStepper)bindable;
 
-            if(newValue is ElementSize elementSize)
+            if (newValue is ElementSize elementSize)
             {
                 control.SetSize(control.ButtonLeft, elementSize);
             }
@@ -346,7 +335,7 @@ namespace Projecte_Stepper
         {
             var control = (CustomStepper)bindable;
 
-            if(newValue is string buttonLeftText)
+            if (newValue is string buttonLeftText)
             {
                 control.ButtonLeft.Text = buttonLeftText;
             }
@@ -369,16 +358,6 @@ namespace Projecte_Stepper
             if (newValue is int cornerRadius)
             {
                 control.ButtonRight.CornerRadius = cornerRadius;
-            }
-        }
-
-        private static void OnButtonRightRelativeSizePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var control = (CustomStepper)bindable;
-
-            if(newValue is float)
-            {
-                control.SetGeneralLayout();
             }
         }
 
@@ -429,7 +408,7 @@ namespace Projecte_Stepper
         {
             var control = (CustomStepper)bindable;
 
-            if(newValue is float cornerRadius)
+            if (newValue is float cornerRadius)
             {
                 control.LabelFrame.CornerRadius = cornerRadius;
             }
@@ -460,7 +439,7 @@ namespace Projecte_Stepper
         {
             var control = (CustomStepper)bindable;
 
-            if(newValue is LayoutOrder layoutOrder)
+            if (newValue is LayoutOrder layoutOrder)
             {
                 switch (layoutOrder)
                 {
@@ -485,14 +464,77 @@ namespace Projecte_Stepper
             }
         }
 
+        private static void OnValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = (CustomStepper)bindable;
+
+            if (newValue is float number)
+                control.LabelDisplay.Text = number.ToString();
+
+            control.OnValuePropertyChangedEvent?.Invoke(control, (EventArgs)newValue);
+        }
+
+        private static void SetGeneralRelativeSizePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = (CustomStepper)bindable;
+
+            if (newValue is float)
+            {
+                control.SetGeneralLayout();
+            }
+        }
+
         #endregion
 
-        #region .: Private Methods:
+        #region .: Events :.
+
+        public event EventHandler OnValuePropertyChangedEvent;
+
+        public EventHandler ButtonRightClicked { get; private set; }
+        public event EventHandler ButtonRightClick;
+
+        public EventHandler ButtonLeftClicked { get; private set; }
+        public event EventHandler ButtonLeftClick;
+
+        #endregion
+
+        #region .: Private Methods:.
+
+        private void DefaultButtonLeftClick(object sender, EventArgs e)
+        {
+            var isNumber = float.TryParse(LabelDisplay.Text, out float numberValue);
+            if (!isNumber) return;
+
+            var newValue = (decimal)(Value - ValueIncrement);
+
+            if ((float)newValue >= ValueMinValue)
+            {
+                Value = (float)newValue;
+            }
+        }
+
+        private void DefaultButtonRightClick(object sender, EventArgs e)
+        {
+            var isNumber = float.TryParse(LabelDisplay.Text, out float numberValue);
+            if (!isNumber) return;
+
+            var newValue = (decimal)(Value + ValueIncrement);
+
+            if ((float)newValue <= ValueMaxValue)
+            {
+                Value = (float)newValue;
+            }
+        }
 
         private void InitializeEvents()
         {
-            ButtonLeft.Clicked += OnButtonLeftClick;
-            ButtonRight.Clicked += OnButtonRightClick;
+            ButtonLeftClicked += DefaultButtonLeftClick;
+            ButtonLeftClicked += (sender, e) => Execute(ButtonLeftClickCommand);
+            ButtonLeft.Clicked += ButtonLeftClicked;
+
+            ButtonRightClicked += DefaultButtonRightClick;
+            ButtonRightClicked += (sender, e) => Execute(ButtonRightClickCommand);
+            ButtonRight.Clicked += ButtonRightClicked;
         }
 
         private void LoadDefaulValues()
@@ -510,9 +552,9 @@ namespace Projecte_Stepper
             float buttonRightRelativeSize = ButtonRightRelativeSize;
             float total = 1f;
 
-            if ((decimal)(buttonLeftRelativeSize + buttonRightRelativeSize) > 1 || 
-                (decimal)(buttonLeftRelativeSize + buttonRightRelativeSize) < 0) 
-                    return;
+            if ((decimal)(buttonLeftRelativeSize + buttonRightRelativeSize) > 1 ||
+                (decimal)(buttonLeftRelativeSize + buttonRightRelativeSize) < 0)
+                return;
 
             if (!LabelFrame.IsVisible)
             {
@@ -567,6 +609,15 @@ namespace Projecte_Stepper
                     break;
                 default:
                     break;
+            }
+        }
+
+        private static void Execute(ICommand command)
+        {
+            if (command == null) return;
+            if (command.CanExecute(null))
+            {
+                command.Execute(null);
             }
         }
 
